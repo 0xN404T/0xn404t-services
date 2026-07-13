@@ -688,15 +688,31 @@ nav{padding:12px 16px}
 <!-- SIGN UP MODAL -->
 <div class="modal-overlay" id="signupModal">
 <div class="modal">
-<button class="modal-close" onclick="closeModal('signup')">&times;</button>
-<h2>Start a Project</h2>
+<button class="modal-close" onclick="closeModal('signup');resetSignupForm()">&times;</button>
+<h2>Create Account</h2>
 <div class="modal-msg" id="signupMsg"></div>
-<input type="text" placeholder="Nama" id="signupName">
+<div id="signupForm">
+<input type="text" placeholder="Nama Lengkap" id="signupName">
 <input type="email" placeholder="Email" id="signupEmail">
-<input type="text" placeholder="WhatsApp / Telegram" id="signupContact">
-<textarea placeholder="Jelaskan project yang lo butuh..." id="signupDesc"></textarea>
-<button class="modal-btn" onclick="handleSignUp()">Submit Request</button>
-<div class="modal-switch">Already have an account? <a onclick="closeModal('signup');openModal('signin')">Sign In</a></div>
+<input type="password" placeholder="Password (min 6 karakter)" id="signupPass">
+<input type="password" placeholder="Ulangi Password" id="signupPass2">
+<button class="modal-btn" onclick="handleSignUp()">Sign Up</button>
+</div>
+<div id="otpStep" style="display:none">
+<div style="text-align:center;margin-bottom:16px">
+<div style="font-size:.85rem;color:var(--text2);margin-bottom:8px">Kode OTP dikirim ke:</div>
+<div style="font-weight:700;color:var(--accent2);margin-bottom:16px" id="otpEmail"></div>
+<div style="background:var(--bg);border:2px dashed var(--accent);border-radius:12px;padding:20px;margin-bottom:16px">
+<div style="font-size:.75rem;color:var(--text3);margin-bottom:8px">KODE VERIFIKASI</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:800;letter-spacing:.3em;color:var(--accent2)" id="otpCode"></div>
+</div>
+<div style="font-size:.78rem;color:var(--text3);margin-bottom:16px">Masukkan kode 6 digit di atas untuk verifikasi akun lo.</div>
+</div>
+<input type="text" placeholder="Masukkan kode OTP" id="otpInput" maxlength="6" style="text-align:center;font-size:1.3rem;letter-spacing:.3em;font-family:'JetBrains Mono',monospace">
+<button class="modal-btn" onclick="verifyOTP()">Verifikasi</button>
+<div style="text-align:center;margin-top:12px"><a style="color:var(--accent2);cursor:pointer;font-size:.85rem" onclick="resetSignupForm()">← Kembali</a></div>
+</div>
+<div class="modal-switch">Already have an account? <a onclick="closeModal('signup');resetSignupForm();openModal('signin')">Sign In</a></div>
 </div>
 </div>
 
@@ -742,37 +758,105 @@ document.querySelectorAll('.modal-overlay').forEach(m=>{
 m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('active')});
 });
 
-// AUTH (localStorage mock)
-function handleSignIn(){
-const email=document.getElementById('signinEmail').value;
-const pass=document.getElementById('signinPass').value;
-const msg=document.getElementById('signinMsg');
-if(!email||!pass){msg.className='modal-msg err';msg.textContent='Fill all fields';return}
-const users=JSON.parse(localStorage.getItem('0xn404t_users')||'[]');
-const user=users.find(u=>u.email===email&&u.pass===pass);
-if(user){
-msg.className='modal-msg ok';msg.textContent='Welcome back, '+user.name+'!';
-setTimeout(()=>closeModal('signin'),1500);
-}else{
-msg.className='modal-msg err';msg.textContent='Invalid credentials';
+// ========== AUTH SYSTEM ==========
+let pendingOTP=null;
+let pendingUser=null;
+
+// Check session on load
+function checkSession(){
+const session=localStorage.getItem('0xn404t_session');
+if(session){
+const user=JSON.parse(session);
+showLoggedIn(user);
 }
+}
+function showLoggedIn(user){
+const navCta=document.querySelector('.nav-cta');
+if(navCta){
+navCta.innerHTML='👤 '+user.name;
+navCta.onclick=showUserMenu;
+navCta.style.background='rgba(0,184,148,0.15)';
+navCta.style.color='#00b894';
+navCta.style.border='1px solid rgba(0,184,148,0.3)';
+}
+}
+function showUserMenu(){
+const existing=document.getElementById('userMenu');
+if(existing){existing.remove();return}
+const session=JSON.parse(localStorage.getItem('0xn404t_session'));
+const menu=document.createElement('div');
+menu.id='userMenu';
+menu.style.cssText='position:absolute;top:60px;right:40px;background:#1a1a2e;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;min-width:220px;z-index:2000;box-shadow:0 12px 40px rgba(0,0,0,0.5)';
+menu.innerHTML='<div style="font-weight:700;margin-bottom:4px;font-size:.95rem">'+session.name+'</div><div style="color:#a0a0b0;font-size:.8rem;margin-bottom:12px">'+session.email+'</div><div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:12px"><a href="#contact" style="color:#a29bfe;text-decoration:none;font-size:.85rem;display:block;padding:6px 0" onclick="this.closest(\'#userMenu\').remove()">💬 Contact Support</a><a href="#" style="color:#ff6b6b;text-decoration:none;font-size:.85rem;display:block;padding:6px 0" onclick="handleLogout()">🚪 Logout</a></div>';
+document.body.appendChild(menu);
+setTimeout(()=>document.addEventListener('click',function close(e){if(!menu.contains(e.target)&&e.target!==document.querySelector('.nav-cta')){menu.remove();document.removeEventListener('click',close)}}),10);
+}
+function handleLogout(){
+localStorage.removeItem('0xn404t_session');
+location.reload();
 }
 
-function handleSignUp(){
-const name=document.getElementById('signupName').value;
-const email=document.getElementById('signupEmail').value;
-const contact=document.getElementById('signupContact').value;
-const desc=document.getElementById('signupDesc').value;
-const msg=document.getElementById('signupMsg');
-if(!name||!email||!contact||!desc){msg.className='modal-msg err';msg.textContent='Fill all fields';return}
+// SIGN IN
+function handleSignIn(){
+const email=document.getElementById('signinEmail').value.trim();
+const pass=document.getElementById('signinPass').value;
+const msg=document.getElementById('signinMsg');
+if(!email||!pass){msg.className='modal-msg err';msg.textContent='Isi semua field';return}
 const users=JSON.parse(localStorage.getItem('0xn404t_users')||'[]');
-if(users.find(u=>u.email===email)){msg.className='modal-msg err';msg.textContent='Email already registered';return}
-users.push({name,email,contact,desc,date:new Date().toISOString()});
+const user=users.find(u=>u.email===email&&u.pass===pass);
+if(!user){msg.className='modal-msg err';msg.textContent='Email atau password salah';return}
+if(!user.verified){msg.className='modal-msg err';msg.textContent='Akun belum diverifikasi. Sign up ulang untuk dapat OTP baru.';return}
+// Login success
+localStorage.setItem('0xn404t_session',JSON.stringify({name:user.name,email:user.email}));
+msg.className='modal-msg ok';msg.textContent='Welcome back, '+user.name+'! ✓';
+setTimeout(()=>{closeModal('signin');showLoggedIn(user)},1200);
+}
+
+// SIGN UP STEP 1 — Collect data + show OTP
+function handleSignUp(){
+const name=document.getElementById('signupName').value.trim();
+const email=document.getElementById('signupEmail').value.trim();
+const pass=document.getElementById('signupPass').value;
+const pass2=document.getElementById('signupPass2').value;
+const msg=document.getElementById('signupMsg');
+if(!name||!email||!pass||!pass2){msg.className='modal-msg err';msg.textContent='Isi semua field';return}
+if(pass.length<6){msg.className='modal-msg err';msg.textContent='Password minimal 6 karakter';return}
+if(pass!==pass2){msg.className='modal-msg err';msg.textContent='Password tidak sama';return}
+const users=JSON.parse(localStorage.getItem('0xn404t_users')||'[]');
+if(users.find(u=>u.email===email)){msg.className='modal-msg err';msg.textContent='Email sudah terdaftar';return}
+// Generate OTP
+const otp=Math.floor(100000+Math.random()*900000).toString();
+pendingOTP=otp;
+pendingUser={name,email,pass,verified:false,date:new Date().toISOString()};
+// Show OTP step
+document.getElementById('signupForm').style.display='none';
+document.getElementById('otpStep').style.display='block';
+document.getElementById('otpEmail').textContent=email;
+document.getElementById('otpCode').textContent=otp;
+msg.className='modal-msg ok';msg.textContent='Kode OTP sudah dibuat! Masukkan kode di bawah.';
+}
+
+// SIGN UP STEP 2 — Verify OTP
+function verifyOTP(){
+const input=document.getElementById('otpInput').value.trim();
+const msg=document.getElementById('signupMsg');
+if(input!==pendingOTP){msg.className='modal-msg err';msg.textContent='Kode OTP salah! Coba lagi.';return}
+// Save verified user
+const users=JSON.parse(localStorage.getItem('0xn404t_users')||'[]');
+pendingUser.verified=true;
+users.push(pendingUser);
 localStorage.setItem('0xn404t_users',JSON.stringify(users));
-msg.className='modal-msg ok';msg.textContent='Request submitted! Gue akan hubungi lo secepatnya.';
-setTimeout(()=>closeModal('signup'),2000);
-// Also open WhatsApp
-window.open('https://wa.me/6288298490391?text='+encodeURIComponent('Halo 0xN404T! Saya '+name+'. '+desc),'_blank');
+// Auto login
+localStorage.setItem('0xn404t_session',JSON.stringify({name:pendingUser.name,email:pendingUser.email}));
+msg.className='modal-msg ok';msg.textContent='✅ Akun berhasil dibuat! Selamat datang, '+pendingUser.name;
+setTimeout(()=>{closeModal('signup');showLoggedIn(pendingUser);pendingOTP=null;pendingUser=null},1500);
+}
+
+function resetSignupForm(){
+document.getElementById('signupForm').style.display='block';
+document.getElementById('otpStep').style.display='none';
+document.getElementById('otpInput').value='';
+pendingOTP=null;pendingUser=null;
 }
 
 // SMOOTH SCROLL
@@ -783,6 +867,9 @@ const target=document.querySelector(a.getAttribute('href'));
 if(target)target.scrollIntoView({behavior:'smooth'});
 });
 });
+
+// Check session on load
+checkSession();
 </script>
 </body>
 </html>
