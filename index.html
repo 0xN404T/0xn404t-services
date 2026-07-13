@@ -1,782 +1,582 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>0xN404T | Digital Services — Bot, Web, Crypto, Automation</title>
-<meta name="description" content="Professional digital services: Bot Development, Web3 Security, Automation, Web Design, Crypto Operations. Solusi digital lengkap untuk bisnis Anda.">
-<meta property="og:title" content="0xN404T | Digital Services">
-<meta property="og:description" content="Bot Development, Web3 Security, Automation, Web Design, Crypto Operations">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#131319;--bg-card:#1a1a24;--bg-card-hover:#222233;
---accent:#6c5ce7;--accent-light:#a29bfe;--accent-glow:rgba(108,92,231,0.3);
---green:#00d2d3;--green-glow:rgba(0,210,211,0.2);
---orange:#fd9644;--pink:#e84393;--blue:#0984e3;
---white:#ffffff;--gray:#8b8b9e;--gray-light:#b8b8cc;
---border:#2a2a3a;
---font:'Inter',-apple-system,sans-serif;
---mono:'JetBrains Mono',monospace;
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--white);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-button{font-family:var(--font);cursor:pointer}
-::selection{background:var(--accent);color:var(--white)}
+     1|<!DOCTYPE html>
+     2|<html lang="id">
+     3|<head>
+     4|<meta charset="UTF-8">
+     5|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|<title>0xN404T | Digital Services — Bot, Web, Crypto, Automation</title>
+     7|<meta name="description" content="Professional digital services: Bot Development, Web3 Security, Automation, Web Design, Crypto Operations. Solusi digital lengkap untuk bisnis Anda.">
+     8|<meta property="og:title" content="0xN404T | Digital Services">
+     9|<meta property="og:description" content="Bot Development, Web3 Security, Automation, Web Design, Crypto Operations">
+    10|<meta property="og:type" content="website">
+    11|<link rel="preconnect" href="https://fonts.googleapis.com">
+    12|<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    13|<style>
+    14|*{margin:0;padding:0;box-sizing:border-box}
+    15|:root{
+    16|--bg:#131319;--bg-card:#1a1a24;--bg-card-hover:#222233;
+    17|--accent:#6c5ce7;--accent-light:#a29bfe;--accent-glow:rgba(108,92,231,0.3);
+    18|--green:#00d2d3;--green-glow:rgba(0,210,211,0.2);
+    19|--orange:#fd9644;--pink:#e84393;--blue:#0984e3;
+    20|--white:#ffffff;--gray:#8b8b9e;--gray-light:#b8b8cc;
+    21|--border:#2a2a3a;
+    22|--font:'Inter',-apple-system,sans-serif;
+    23|--mono:'JetBrains Mono',monospace;
+    24|}
+    25|html{scroll-behavior:smooth}
+    26|body{font-family:var(--font);background:var(--bg);color:var(--white);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+    27|a{color:inherit;text-decoration:none}
+    28|button{font-family:var(--font);cursor:pointer}
+    29|::selection{background:var(--accent);color:var(--white)}
+    30|
+    31|/* ===== NAV ===== */
+    32|nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(19,19,25,0.8);border-bottom:1px solid var(--border)}
+    33|.nav-logo{font-size:1.2rem;font-weight:800;letter-spacing:-0.5px}
+    34|.nav-logo span{color:var(--accent)}
+    35|.nav-links{display:flex;gap:30px;align-items:center}
+    36|.nav-links a{font-size:0.85rem;color:var(--gray);transition:color 0.3s;font-weight:500}
+    37|.nav-links a:hover{color:var(--white)}
+    38|.nav-cta{padding:8px 20px;background:var(--accent);border:none;border-radius:8px;color:var(--white);font-size:0.8rem;font-weight:600;transition:all 0.3s}
+    39|.nav-cta:hover{transform:translateY(-2px);box-shadow:0 5px 20px var(--accent-glow)}
+    40|.nav-mobile{display:none;background:none;border:none;color:var(--white);font-size:1.5rem}
+    41|
+    42|/* ===== HERO ===== */
+    43|.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 80px;position:relative;overflow:hidden}
+    44|.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(108,92,231,0.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(0,210,211,0.05) 0%,transparent 50%);animation:heroGlow 15s ease infinite}
+    45|@keyframes heroGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(-5%,3%)}}
+    46|.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(108,92,231,0.15);border:1px solid rgba(108,92,231,0.3);border-radius:100px;font-size:0.75rem;color:var(--accent-light);margin-bottom:30px;animation:fadeInUp 0.8s ease}
+    47|.hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+    48|@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    49|.hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:20px;animation:fadeInUp 0.8s ease 0.1s both}
+    50|.hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    51|.hero p{font-size:1.1rem;color:var(--gray);max-width:500px;margin:0 auto 40px;animation:fadeInUp 0.8s ease 0.2s both}
+    52|.hero-buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;animation:fadeInUp 0.8s ease 0.3s both}
+    53|.btn-primary{padding:14px 32px;background:var(--accent);color:var(--white);border:none;border-radius:10px;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+    54|.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--accent-glow)}
+    55|.btn-secondary{padding:14px 32px;background:transparent;color:var(--white);border:1px solid var(--border);border-radius:10px;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+    56|.btn-secondary:hover{border-color:var(--accent);background:rgba(108,92,231,0.1)}
+    57|
+    58|/* ===== STATS ===== */
+    59|.stats{display:flex;justify-content:center;gap:60px;padding:60px 20px;flex-wrap:wrap}
+    60|.stat{text-align:center}
+    61|.stat .number{font-size:2.5rem;font-weight:800;color:var(--white);letter-spacing:-1px}
+    62|.stat .number span{color:var(--accent)}
+    63|.stat .label{font-size:0.8rem;color:var(--gray);margin-top:5px;text-transform:uppercase;letter-spacing:2px}
+    64|
+    65|/* ===== SERVICES ===== */
+    66|.section{padding:100px 20px}
+    67|.section-header{text-align:center;margin-bottom:60px}
+    68|.section-tag{font-size:0.7rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:10px;font-weight:600}
+    69|.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:15px}
+    70|.section-desc{font-size:0.95rem;color:var(--gray);max-width:500px;margin:0 auto}
+    71|
+    72|.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+    73|.service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:30px;transition:all 0.4s;position:relative;overflow:hidden}
+    74|.service-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+    75|.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));opacity:0;transition:opacity 0.4s}
+    76|.service-card:hover::before{opacity:1}
+    77|.service-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+    78|.service-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    79|.service-card p{font-size:0.85rem;color:var(--gray);line-height:1.6;margin-bottom:15px}
+    80|.service-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
+    81|.service-tag{padding:3px 10px;background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.2);border-radius:100px;font-size:0.65rem;color:var(--accent-light);font-weight:500}
+    82|.service-price{font-size:0.8rem;color:var(--green);font-weight:600;font-family:var(--mono)}
+    83|
+    84|/* ===== HOW IT WORKS ===== */
+    85|.steps{display:flex;justify-content:center;gap:40px;max-width:900px;margin:0 auto;flex-wrap:wrap}
+    86|.step{text-align:center;flex:1;min-width:200px;position:relative}
+    87|.step-num{font-size:3rem;font-weight:900;color:var(--accent);opacity:0.2;margin-bottom:10px;line-height:1}
+    88|.step h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+    89|.step p{font-size:0.8rem;color:var(--gray);line-height:1.6}
+    90|.step::after{content:'→';position:absolute;right:-25px;top:30px;font-size:1.5rem;color:var(--border)}
+    91|.step:last-child::after{display:none}
+    92|
+    93|/* ===== TECH STACK ===== */
+    94|.tech-row{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;padding:40px 20px}
+    95|.tech-item{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:0.8rem;font-weight:500;color:var(--gray-light);transition:all 0.3s}
+    96|.tech-item:hover{border-color:var(--accent);color:var(--white)}
+    97|.tech-dot{width:8px;height:8px;border-radius:50%}
+    98|
+    99|/* ===== PORTFOLIO ===== */
+   100|.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+   101|.portfolio-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.4s}
+   102|.portfolio-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+   103|.portfolio-img{height:180px;background:linear-gradient(135deg,var(--bg-card),var(--bg));display:flex;align-items:center;justify-content:center;font-size:3rem}
+   104|.portfolio-body{padding:20px}
+   105|.portfolio-body h3{font-size:1rem;font-weight:700;margin-bottom:5px}
+   106|.portfolio-body p{font-size:0.8rem;color:var(--gray)}
+   107|.portfolio-body .tech-used{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+   108|.portfolio-body .tech-used span{padding:2px 8px;background:rgba(0,210,211,0.1);border:1px solid rgba(0,210,211,0.2);border-radius:100px;font-size:0.6rem;color:var(--green)}
+   109|
+   110|/* ===== PRICING ===== */
+   111|.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto}
+   112|.pricing-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;transition:all 0.4s;position:relative}
+   113|.pricing-card.featured{border-color:var(--accent);transform:scale(1.05)}
+   114|.pricing-card.featured::before{content:'POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 16px;background:var(--accent);border-radius:100px;font-size:0.65rem;font-weight:700;letter-spacing:1px}
+   115|.pricing-card:hover{transform:translateY(-5px)}
+   116|.pricing-card.featured:hover{transform:scale(1.05) translateY(-5px)}
+   117|.pricing-card h3{font-size:1rem;font-weight:700;margin-bottom:5px}
+   118|.pricing-card .price{font-size:2.5rem;font-weight:800;margin:15px 0 5px}
+   119|.pricing-card .price span{font-size:0.9rem;color:var(--gray);font-weight:400}
+   120|.pricing-card .desc{font-size:0.8rem;color:var(--gray);margin-bottom:20px}
+   121|.pricing-features{text-align:left;margin-bottom:25px}
+   122|.pricing-features li{font-size:0.8rem;color:var(--gray-light);padding:5px 0;list-style:none;display:flex;align-items:center;gap:8px}
+   123|.pricing-features li::before{content:'✓';color:var(--green);font-weight:700}
+   124|
+   125|/* ===== TESTIMONIALS ===== */
+   126|.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+   127|.testimonial-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:25px}
+   128|.testimonial-stars{color:var(--orange);margin-bottom:10px;font-size:0.9rem}
+   129|.testimonial-text{font-size:0.85rem;color:var(--gray-light);line-height:1.7;margin-bottom:15px;font-style:italic}
+   130|.testimonial-author{display:flex;align-items:center;gap:10px}
+   131|.testimonial-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem}
+   132|.testimonial-name{font-size:0.85rem;font-weight:600}
+   133|.testimonial-role{font-size:0.7rem;color:var(--gray)}
+   134|
+   135|/* ===== CTA ===== */
+   136|.cta{text-align:center;padding:100px 20px;position:relative}
+   137|.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--accent-glow) 0%,transparent 60%);opacity:0.3}
+   138|.cta h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-1px;margin-bottom:15px;position:relative}
+   139|.cta p{font-size:1rem;color:var(--gray);margin-bottom:30px;position:relative}
+   140|.cta .btn-primary{position:relative}
+   141|
+   142|/* ===== CONTACT ===== */
+   143|.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
+   144|.contact-info{display:flex;flex-direction:column;gap:20px}
+   145|.contact-item{display:flex;align-items:center;gap:15px}
+   146|.contact-icon{width:45px;height:45px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+   147|.contact-label{font-size:0.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px}
+   148|.contact-value{font-size:0.9rem;font-weight:500}
+   149|.contact-form{display:flex;flex-direction:column;gap:12px}
+   150|.contact-form input,.contact-form textarea,.contact-form select{padding:12px 15px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:var(--font);font-size:0.85rem;outline:none;transition:border-color 0.3s}
+   151|.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--accent)}
+   152|.contact-form textarea{height:100px;resize:none}
+   153|.contact-form select option{background:var(--bg-card)}
+   154|.contact-form .btn-primary{align-self:flex-start}
+   155|
+   156|/* ===== FOOTER ===== */
+   157|footer{padding:40px 20px;border-top:1px solid var(--border);text-align:center}
+   158|.footer-links{display:flex;justify-content:center;gap:30px;margin-bottom:20px;flex-wrap:wrap}
+   159|.footer-links a{font-size:0.8rem;color:var(--gray);transition:color 0.3s}
+   160|.footer-links a:hover{color:var(--white)}
+   161|.footer-social{display:flex;justify-content:center;gap:15px;margin-bottom:20px}
+   162|.footer-social a{width:40px;height:40px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s}
+   163|.footer-social a:hover{border-color:var(--accent);transform:translateY(-2px)}
+   164|.footer-copy{font-size:0.7rem;color:var(--gray)}
+   165|
+   166|/* ===== FAQ ===== */
+   167|.faq-list{max-width:700px;margin:0 auto}
+   168|.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+   169|.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:0.9rem}
+   170|.faq-q::after{content:'+';font-size:1.2rem;color:var(--accent);transition:transform 0.3s}
+   171|.faq-item.active .faq-q::after{transform:rotate(45deg)}
+   172|.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s;font-size:0.85rem;color:var(--gray);line-height:1.7}
+   173|.faq-item.active .faq-a{max-height:200px;padding-top:15px}
+   174|
+   175|/* ===== ANIMATIONS ===== */
+   176|@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+   177|.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s}
+   178|.fade-in.visible{opacity:1;transform:translateY(0)}
+   179|
+   180|/* ===== RESPONSIVE ===== */
+   181|@media(max-width:768px){
+   182|nav{padding:15px 20px}
+   183|.nav-links{display:none}
+   184|.nav-mobile{display:block}
+   185|.hero{padding:100px 20px 60px}
+   186|.hero h1{letter-spacing:-1px}
+   187|.stats{gap:30px}
+   188|.stat .number{font-size:1.8rem}
+   189|.services-grid{grid-template-columns:1fr}
+   190|.steps{flex-direction:column;gap:20px}
+   191|.step::after{display:none}
+   192|.contact-grid{grid-template-columns:1fr}
+   193|.pricing-card.featured{transform:none}
+   194|.pricing-card.featured:hover{transform:translateY(-5px)}
+   195|.portfolio-grid{grid-template-columns:1fr}
+   196|.testimonials-grid{grid-template-columns:1fr}
+   197|}
+   198|
+   199|
+/* ===== 3D ANIMATIONS ===== */
+.hero-3d{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;perspective:1000px;pointer-events:none;opacity:0.15}
+.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:rotateCube 20s linear infinite}
+.cube-face{position:absolute;width:200px;height:200px;left:50px;top:50px;border:1px solid var(--accent);background:rgba(108,92,231,0.05);backdrop-filter:blur(5px)}
+.cube-face.front{transform:translateZ(100px)}
+.cube-face.back{transform:rotateY(180deg) translateZ(100px)}
+.cube-face.right{transform:rotateY(90deg) translateZ(100px)}
+.cube-face.left{transform:rotateY(-90deg) translateZ(100px)}
+.cube-face.top{transform:rotateX(90deg) translateZ(100px)}
+.cube-face.bottom{transform:rotateX(-90deg) translateZ(100px)}
+@keyframes rotateCube{0%{transform:rotateX(0) rotateY(0)}100%{transform:rotateX(360deg) rotateY(360deg)}}
 
-/* ===== NAV ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(19,19,25,0.8);border-bottom:1px solid var(--border)}
-.nav-logo{font-size:1.2rem;font-weight:800;letter-spacing:-0.5px}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:30px;align-items:center}
-.nav-links a{font-size:0.85rem;color:var(--gray);transition:color 0.3s;font-weight:500}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{padding:8px 20px;background:var(--accent);border:none;border-radius:8px;color:var(--white);font-size:0.8rem;font-weight:600;transition:all 0.3s}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 5px 20px var(--accent-glow)}
-.nav-mobile{display:none;background:none;border:none;color:var(--white);font-size:1.5rem}
+/* Floating 3D shapes */
+.shape-float{position:fixed;pointer-events:none;z-index:0;opacity:0.08}
+.shape-1{top:15%;left:10%;width:80px;height:80px;border:2px solid var(--accent);border-radius:50%;animation:float3d1 8s ease-in-out infinite}
+.shape-2{top:60%;right:8%;width:60px;height:60px;border:2px solid var(--green);animation:float3d2 10s ease-in-out infinite;transform:rotate(45deg)}
+.shape-3{bottom:20%;left:15%;width:40px;height:40px;border:2px solid var(--pink);border-radius:50%;animation:float3d3 12s ease-in-out infinite}
+.shape-4{top:30%;right:15%;width:100px;height:100px;border:2px solid var(--orange);border-radius:30% 70% 70% 30% / 30% 30% 70% 70%;animation:float3d4 15s ease-in-out infinite}
+@keyframes float3d1{0%,100%{transform:translateY(0) rotateX(0) rotateY(0)}50%{transform:translateY(-30px) rotateX(180deg) rotateY(90deg)}}
+@keyframes float3d2{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(-40px) rotate(225deg)}}
+@keyframes float3d3{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-25px) scale(1.3)}}
+@keyframes float3d4{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-35px) rotate(180deg)}}
 
-/* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(108,92,231,0.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(0,210,211,0.05) 0%,transparent 50%);animation:heroGlow 15s ease infinite}
-@keyframes heroGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(-5%,3%)}}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(108,92,231,0.15);border:1px solid rgba(108,92,231,0.3);border-radius:100px;font-size:0.75rem;color:var(--accent-light);margin-bottom:30px;animation:fadeInUp 0.8s ease}
-.hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:20px;animation:fadeInUp 0.8s ease 0.1s both}
-.hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:1.1rem;color:var(--gray);max-width:500px;margin:0 auto 40px;animation:fadeInUp 0.8s ease 0.2s both}
-.hero-buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;animation:fadeInUp 0.8s ease 0.3s both}
-.btn-primary{padding:14px 32px;background:var(--accent);color:var(--white);border:none;border-radius:10px;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--accent-glow)}
-.btn-secondary{padding:14px 32px;background:transparent;color:var(--white);border:1px solid var(--border);border-radius:10px;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
-.btn-secondary:hover{border-color:var(--accent);background:rgba(108,92,231,0.1)}
+/* 3D Card hover */
+.service-card{transform-style:preserve-3d;perspective:1000px}
+.service-card:hover{transform:translateY(-5px) rotateX(2deg) rotateY(-2deg)}
 
-/* ===== STATS ===== */
-.stats{display:flex;justify-content:center;gap:60px;padding:60px 20px;flex-wrap:wrap}
-.stat{text-align:center}
-.stat .number{font-size:2.5rem;font-weight:800;color:var(--white);letter-spacing:-1px}
-.stat .number span{color:var(--accent)}
-.stat .label{font-size:0.8rem;color:var(--gray);margin-top:5px;text-transform:uppercase;letter-spacing:2px}
+/* 3D tilt on hero */
+.hero-content{transform-style:preserve-3d;perspective:1000px}
 
-/* ===== SERVICES ===== */
-.section{padding:100px 20px}
-.section-header{text-align:center;margin-bottom:60px}
-.section-tag{font-size:0.7rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:10px;font-weight:600}
-.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:15px}
-.section-desc{font-size:0.95rem;color:var(--gray);max-width:500px;margin:0 auto}
+/* Particle grid background */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:0.3;animation:particleFloat linear infinite}
+@keyframes particleFloat{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:0.3}90%{opacity:0.3}100%{transform:translateY(-10vh) translateX(100px);opacity:0}}
 
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-.service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:30px;transition:all 0.4s;position:relative;overflow:hidden}
-.service-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,0.3)}
-.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));opacity:0;transition:opacity 0.4s}
-.service-card:hover::before{opacity:1}
-.service-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
-.service-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
-.service-card p{font-size:0.85rem;color:var(--gray);line-height:1.6;margin-bottom:15px}
-.service-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
-.service-tag{padding:3px 10px;background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.2);border-radius:100px;font-size:0.65rem;color:var(--accent-light);font-weight:500}
-.service-price{font-size:0.8rem;color:var(--green);font-weight:600;font-family:var(--mono)}
+/* Glowing orb */
+.glow-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.glow-1{width:400px;height:400px;background:rgba(108,92,231,0.1);top:-100px;right:-100px;animation:glowMove1 20s ease infinite}
+.glow-2{width:300px;height:300px;background:rgba(0,210,211,0.08);bottom:-100px;left:-100px;animation:glowMove2 25s ease infinite}
+@keyframes glowMove1{0%,100%{transform:translate(0,0)}50%{transform:translate(-100px,100px)}}
+@keyframes glowMove2{0%,100%{transform:translate(0,0)}50%{transform:translate(100px,-80px)}}
 
-/* ===== HOW IT WORKS ===== */
-.steps{display:flex;justify-content:center;gap:40px;max-width:900px;margin:0 auto;flex-wrap:wrap}
-.step{text-align:center;flex:1;min-width:200px;position:relative}
-.step-num{font-size:3rem;font-weight:900;color:var(--accent);opacity:0.2;margin-bottom:10px;line-height:1}
-.step h3{font-size:1rem;font-weight:700;margin-bottom:8px}
-.step p{font-size:0.8rem;color:var(--gray);line-height:1.6}
-.step::after{content:'→';position:absolute;right:-25px;top:30px;font-size:1.5rem;color:var(--border)}
-.step:last-child::after{display:none}
+/* ===== AUTH MODAL ===== */
+.nav-signin{padding:8px 20px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:0.8rem;font-weight:600;transition:all 0.3s;cursor:pointer}
+.nav-signin:hover{border-color:var(--accent);background:rgba(108,92,231,0.1)}
 
-/* ===== TECH STACK ===== */
-.tech-row{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;padding:40px 20px}
-.tech-item{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:0.8rem;font-weight:500;color:var(--gray-light);transition:all 0.3s}
-.tech-item:hover{border-color:var(--accent);color:var(--white)}
-.tech-dot{width:8px;height:8px;border-radius:50%}
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.auth-overlay.active{display:flex}
+.auth-modal{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:420px;position:relative;animation:authSlide 0.3s ease}
+@keyframes authSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.auth-close{position:absolute;top:15px;right:15px;background:none;border:none;color:var(--gray);font-size:1.2rem;cursor:pointer;transition:color 0.3s}
+.auth-close:hover{color:var(--white)}
+.auth-tabs{display:flex;gap:0;margin-bottom:30px;background:var(--bg);border-radius:10px;padding:4px}
+.auth-tab{flex:1;padding:10px;text-align:center;border:none;background:transparent;color:var(--gray);font-family:var(--font);font-size:0.85rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all 0.3s}
+.auth-tab.active{background:var(--accent);color:var(--white)}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+.auth-form input{padding:12px 15px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:var(--font);font-size:0.85rem;outline:none;transition:border-color 0.3s}
+.auth-form input:focus{border-color:var(--accent)}
+.auth-form .btn-primary{width:100%;justify-content:center}
+.auth-divider{display:flex;align-items:center;gap:15px;margin:15px 0;color:var(--gray);font-size:0.75rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-social{display:flex;gap:10px}
+.auth-social button{flex:1;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:var(--font);font-size:0.85rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.auth-social button:hover{border-color:var(--accent);background:rgba(108,92,231,0.1)}
+.auth-link{text-align:center;font-size:0.8rem;color:var(--gray);margin-top:15px}
+.auth-link a{color:var(--accent);cursor:pointer}
+.auth-link a:hover{text-decoration:underline}
+.auth-success{text-align:center;padding:20px}
+.auth-success .icon{font-size:3rem;margin-bottom:15px}
+.auth-success h3{font-size:1.2rem;margin-bottom:8px}
+.auth-success p{font-size:0.85rem;color:var(--gray)}
+.auth-forgot{text-align:right;font-size:0.75rem;margin-top:-5px}
+.auth-forgot a{color:var(--accent);cursor:pointer}
+.auth-forgot a:hover{text-decoration:underline}
 
-/* ===== PORTFOLIO ===== */
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-.portfolio-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.4s}
-.portfolio-card:hover{border-color:var(--accent);transform:translateY(-3px)}
-.portfolio-img{height:180px;background:linear-gradient(135deg,var(--bg-card),var(--bg));display:flex;align-items:center;justify-content:center;font-size:3rem}
-.portfolio-body{padding:20px}
-.portfolio-body h3{font-size:1rem;font-weight:700;margin-bottom:5px}
-.portfolio-body p{font-size:0.8rem;color:var(--gray)}
-.portfolio-body .tech-used{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
-.portfolio-body .tech-used span{padding:2px 8px;background:rgba(0,210,211,0.1);border:1px solid rgba(0,210,211,0.2);border-radius:100px;font-size:0.6rem;color:var(--green)}
-
-/* ===== PRICING ===== */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto}
-.pricing-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;transition:all 0.4s;position:relative}
-.pricing-card.featured{border-color:var(--accent);transform:scale(1.05)}
-.pricing-card.featured::before{content:'POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 16px;background:var(--accent);border-radius:100px;font-size:0.65rem;font-weight:700;letter-spacing:1px}
-.pricing-card:hover{transform:translateY(-5px)}
-.pricing-card.featured:hover{transform:scale(1.05) translateY(-5px)}
-.pricing-card h3{font-size:1rem;font-weight:700;margin-bottom:5px}
-.pricing-card .price{font-size:2.5rem;font-weight:800;margin:15px 0 5px}
-.pricing-card .price span{font-size:0.9rem;color:var(--gray);font-weight:400}
-.pricing-card .desc{font-size:0.8rem;color:var(--gray);margin-bottom:20px}
-.pricing-features{text-align:left;margin-bottom:25px}
-.pricing-features li{font-size:0.8rem;color:var(--gray-light);padding:5px 0;list-style:none;display:flex;align-items:center;gap:8px}
-.pricing-features li::before{content:'✓';color:var(--green);font-weight:700}
-
-/* ===== TESTIMONIALS ===== */
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-.testimonial-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:25px}
-.testimonial-stars{color:var(--orange);margin-bottom:10px;font-size:0.9rem}
-.testimonial-text{font-size:0.85rem;color:var(--gray-light);line-height:1.7;margin-bottom:15px;font-style:italic}
-.testimonial-author{display:flex;align-items:center;gap:10px}
-.testimonial-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem}
-.testimonial-name{font-size:0.85rem;font-weight:600}
-.testimonial-role{font-size:0.7rem;color:var(--gray)}
-
-/* ===== CTA ===== */
-.cta{text-align:center;padding:100px 20px;position:relative}
-.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--accent-glow) 0%,transparent 60%);opacity:0.3}
-.cta h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-1px;margin-bottom:15px;position:relative}
-.cta p{font-size:1rem;color:var(--gray);margin-bottom:30px;position:relative}
-.cta .btn-primary{position:relative}
-
-/* ===== CONTACT ===== */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
-.contact-info{display:flex;flex-direction:column;gap:20px}
-.contact-item{display:flex;align-items:center;gap:15px}
-.contact-icon{width:45px;height:45px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.contact-label{font-size:0.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px}
-.contact-value{font-size:0.9rem;font-weight:500}
-.contact-form{display:flex;flex-direction:column;gap:12px}
-.contact-form input,.contact-form textarea,.contact-form select{padding:12px 15px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:var(--font);font-size:0.85rem;outline:none;transition:border-color 0.3s}
-.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--accent)}
-.contact-form textarea{height:100px;resize:none}
-.contact-form select option{background:var(--bg-card)}
-.contact-form .btn-primary{align-self:flex-start}
-
-/* ===== FOOTER ===== */
-footer{padding:40px 20px;border-top:1px solid var(--border);text-align:center}
-.footer-links{display:flex;justify-content:center;gap:30px;margin-bottom:20px;flex-wrap:wrap}
-.footer-links a{font-size:0.8rem;color:var(--gray);transition:color 0.3s}
-.footer-links a:hover{color:var(--white)}
-.footer-social{display:flex;justify-content:center;gap:15px;margin-bottom:20px}
-.footer-social a{width:40px;height:40px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s}
-.footer-social a:hover{border-color:var(--accent);transform:translateY(-2px)}
-.footer-copy{font-size:0.7rem;color:var(--gray)}
-
-/* ===== FAQ ===== */
-.faq-list{max-width:700px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
-.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:0.9rem}
-.faq-q::after{content:'+';font-size:1.2rem;color:var(--accent);transition:transform 0.3s}
-.faq-item.active .faq-q::after{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s;font-size:0.85rem;color:var(--gray);line-height:1.7}
-.faq-item.active .faq-a{max-height:200px;padding-top:15px}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-nav{padding:15px 20px}
-.nav-links{display:none}
-.nav-mobile{display:block}
-.hero{padding:100px 20px 60px}
-.hero h1{letter-spacing:-1px}
-.stats{gap:30px}
-.stat .number{font-size:1.8rem}
-.services-grid{grid-template-columns:1fr}
-.steps{flex-direction:column;gap:20px}
-.step::after{display:none}
-.contact-grid{grid-template-columns:1fr}
-.pricing-card.featured{transform:none}
-.pricing-card.featured:hover{transform:translateY(-5px)}
-.portfolio-grid{grid-template-columns:1fr}
-.testimonials-grid{grid-template-columns:1fr}
-}
+/* ===== 3D PARALLAX HERO ===== */
+.hero{perspective:1000px}
+.hero-content{position:relative;z-index:2}
 
 /* Mobile nav */
-.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:99;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-.mobile-menu.active{display:flex}
-.mobile-menu a{font-size:1.2rem;font-weight:600;color:var(--white)}
-.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--white);font-size:1.5rem}
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">0x<span>N404T</span></div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
+   200|.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:99;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+   201|.mobile-menu.active{display:flex}
+   202|.mobile-menu a{font-size:1.2rem;font-weight:600;color:var(--white)}
+   203|.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--white);font-size:1.5rem}
+   204|</style>
+   205|</head>
+   206|<body>
+   207|
+   208|<!-- NAV -->
+   209|<nav>
+   210|  <div class="nav-logo">0x<span>N404T</span></div>
+   211|  <div class="nav-links">
+   212|    <a href="#services">Services</a>
+   213|    <a href="#portfolio">Portfolio</a>
+   214|    <a href="#pricing">Pricing</a>
+   215|    <a href="#faq">FAQ</a>
+   216|    <a href="#contact">Contact</a>
+   217|    <button class="nav-signin" onclick="openAuth()">Sign In</button>
     <button class="nav-cta" onclick="scrollToContact()">Get Started</button>
-  </div>
-  <button class="nav-mobile" onclick="toggleMobile()">☰</button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMobile()">✕</button>
-  <a href="#services" onclick="toggleMobile()">Services</a>
-  <a href="#portfolio" onclick="toggleMobile()">Portfolio</a>
-  <a href="#pricing" onclick="toggleMobile()">Pricing</a>
-  <a href="#faq" onclick="toggleMobile()">FAQ</a>
-  <a href="#contact" onclick="toggleMobile()">Contact</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge"><span class="dot"></span> Available for projects</div>
-  <h1>Build Fast.<br><span class="gradient">Ship Faster.</span></h1>
-  <p>Full-stack digital services — dari bot automation sampai Web3 security. Satu developer, semua solusi.</p>
-  <div class="hero-buttons">
-    <button class="btn-primary" onclick="scrollToContact()">Start a Project →</button>
-    <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">View Services</button>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats fade-in">
-  <div class="stat"><div class="number">109<span>+</span></div><div class="label">Skills</div></div>
-  <div class="stat"><div class="number">12</div><div class="label">Categories</div></div>
-  <div class="stat"><div class="number">24<span>/7</span></div><div class="label">Support</div></div>
-  <div class="stat"><div class="number">100<span>%</span></div><div class="label">Automated</div></div>
-</div>
-
-<!-- SERVICES -->
-<section class="section" id="services">
-  <div class="section-header fade-in">
-    <div class="section-tag">Services</div>
-    <div class="section-title">What I Can Build For You</div>
-    <div class="section-desc">Full-stack digital solutions. Dari ide sampai deploy.</div>
-  </div>
-  <div class="services-grid">
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(108,92,231,0.15)">🤖</div>
-      <h3>Bot Development</h3>
-      <p>Telegram, WhatsApp, Discord bots dengan AI integration. Auto-reply, broadcast, CS ticketing, monitoring.</p>
-      <div class="service-tags">
-        <span class="service-tag">Telegram</span>
-        <span class="service-tag">WhatsApp</span>
-        <span class="service-tag">Discord</span>
-        <span class="service-tag">AI/ChatGPT</span>
-      </div>
-      <div class="service-price">Mulai dari $100</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(0,210,211,0.15)">🌐</div>
-      <h3>Web Development</h3>
-      <p>Website responsif, landing page, wedding invitation, portfolio. Deploy ke GitHub Pages, Vercel, Cloudflare.</p>
-      <div class="service-tags">
-        <span class="service-tag">HTML/CSS/JS</span>
-        <span class="service-tag">Responsive</span>
-        <span class="service-tag">Deploy</span>
-      </div>
-      <div class="service-price">Mulai dari $50</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(253,150,68,0.15)">🔒</div>
-      <h3>Web3 Security</h3>
-      <p>Smart contract audit, wallet drainer detection, on-chain forensics, bug bounty hunting.</p>
-      <div class="service-tags">
-        <span class="service-tag">Solidity</span>
-        <span class="service-tag">Slither</span>
-        <span class="service-tag">Mythril</span>
-        <span class="service-tag">Audit</span>
-      </div>
-      <div class="service-price">Mulai dari $200</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(232,67,147,0.15)">🪙</div>
-      <h3>Crypto Operations</h3>
-      <p>Multi-chain wallet generation, token analysis, airdrop farming, trading bot setup, DePIN node ops.</p>
-      <div class="service-tags">
-        <span class="service-tag">EVM</span>
-        <span class="service-tag">Solana</span>
-        <span class="service-tag">Trading</span>
-        <span class="service-tag">Airdrop</span>
-      </div>
-      <div class="service-price">Mulai dari $50</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(9,132,227,0.15)">🎬</div>
-      <h3>Video Production</h3>
-      <p>YouTube Shorts pipeline otomatis. Script → TTS → captions → video → upload. Multi-language support.</p>
-      <div class="service-tags">
-        <span class="service-tag">TTS</span>
-        <span class="service-tag">Whisper</span>
-        <span class="service-tag">Auto-upload</span>
-      </div>
-      <div class="service-price">Mulai dari $30/video</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(108,92,231,0.15)">📱</div>
-      <h3>Social Media</h3>
-      <p>X/Twitter auto-posting, growth analytics, content strategy, engagement automation.</p>
-      <div class="service-tags">
-        <span class="service-tag">X/Twitter</span>
-        <span class="service-tag">Analytics</span>
-        <span class="service-tag">Growth</span>
-      </div>
-      <div class="service-price">Mulai dari $200/bulan</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(0,210,211,0.15)">🕷️</div>
-      <h3>Web Scraping</h3>
-      <p>Data extraction, browser automation, CAPTCHA bypass, anti-detect setup.</p>
-      <div class="service-tags">
-        <span class="service-tag">Playwright</span>
-        <span class="service-tag">Python</span>
-        <span class="service-tag">Anti-detect</span>
-      </div>
-      <div class="service-price">Mulai dari $100</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(253,150,68,0.15)">🖥️</div>
-      <h3>DevOps & Server</h3>
-      <p>VPS setup & hardening, Docker deployment, CI/CD pipeline, LLM API hosting, monitoring.</p>
-      <div class="service-tags">
-        <span class="service-tag">Linux</span>
-        <span class="service-tag">Docker</span>
-        <span class="service-tag">CI/CD</span>
-      </div>
-      <div class="service-price">Mulai dari $100</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(232,67,147,0.15)">🔍</div>
-      <h3>OSINT & Recon</h3>
-      <p>Target reconnaissance, subdomain enumeration, attack surface mapping, phone number lookup.</p>
-      <div class="service-tags">
-        <span class="service-tag">Nmap</span>
-        <span class="service-tag">Nuclei</span>
-        <span class="service-tag">OSINT</span>
-      </div>
-      <div class="service-price">Mulai dari $150</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(9,132,227,0.15)">🛡️</div>
-      <h3>AI Security</h3>
-      <p>AI red teaming, prompt injection testing, LLM guardrail audit, CTF challenge solving.</p>
-      <div class="service-tags">
-        <span class="service-tag">Red Team</span>
-        <span class="service-tag">LLM</span>
-        <span class="service-tag">CTF</span>
-      </div>
-      <div class="service-price">Mulai dari $200</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(108,92,231,0.15)">📄</div>
-      <h3>Document Services</h3>
-      <p>Excel template builder, CV/Resume ATS optimization, application document preparation.</p>
-      <div class="service-tags">
-        <span class="service-tag">Excel</span>
-        <span class="service-tag">CV</span>
-        <span class="service-tag">PDF</span>
-      </div>
-      <div class="service-price">Mulai dari $20</div>
-    </div>
-
-    <div class="service-card fade-in">
-      <div class="service-icon" style="background:rgba(0,210,211,0.15)">💰</div>
-      <h3>Automation</h3>
-      <p>Survey automation, workflow automation (n8n/Zapier), earning platform optimization.</p>
-      <div class="service-tags">
-        <span class="service-tag">n8n</span>
-        <span class="service-tag">Playwright</span>
-        <span class="service-tag">Cron</span>
-      </div>
-      <div class="service-price">Mulai dari $100</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section" style="background:var(--bg-card)">
-  <div class="section-header fade-in">
-    <div class="section-tag">Process</div>
-    <div class="section-title">How It Works</div>
-  </div>
-  <div class="steps fade-in">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Discuss</h3>
-      <p>Ceritain kebutuhan lo. Gue analisis & kasih rekomendasi terbaik.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Build</h3>
-      <p>Gue develop, test, sampai perfect. Progress update realtime.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Deploy</h3>
-      <p>Deploy ke server, domain, atau platform pilihan lo.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Support</h3>
-      <p>Maintenance & support after deploy. Gak ada PHP-an.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TECH STACK -->
-<section class="section">
-  <div class="section-header fade-in">
-    <div class="section-tag">Tech Stack</div>
-    <div class="section-title">Tools I Use</div>
-  </div>
-  <div class="tech-row fade-in">
-    <div class="tech-item"><div class="tech-dot" style="background:#f7df1e"></div>JavaScript</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#3178c6"></div>TypeScript</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#3776ab"></div>Python</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#00add8"></div>Go</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#e34f26"></div>HTML/CSS</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#61dafb"></div>React</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#339933"></div>Node.js</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#2496ed"></div>Docker</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#0db7ed"></div>PostgreSQL</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#47a248"></div>MongoDB</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#ff6b6b"></div>Solidity</div>
-    <div class="tech-item"><div class="tech-dot" style="background:#00d2d3"></div>Linux/VPS</div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section class="section" id="portfolio" style="background:var(--bg-card)">
-  <div class="section-header fade-in">
-    <div class="section-tag">Portfolio</div>
-    <div class="section-title">Recent Projects</div>
-  </div>
-  <div class="portfolio-grid">
-    <div class="portfolio-card fade-in">
-      <div class="portfolio-img">🤖</div>
-      <div class="portfolio-body">
-        <h3>ITLG Auto-Claim Bot</h3>
-        <p>Automated token mining bot with Telegram notifications, multi-account support, and anti-detect.</p>
-        <div class="tech-used"><span>Node.js</span><span>Telegram API</span><span>Cron</span></div>
-      </div>
-    </div>
-    <div class="portfolio-card fade-in">
-      <div class="portfolio-img">🎬</div>
-      <div class="portfolio-body">
-        <h3>ShortForge Pipeline</h3>
-        <p>Full YouTube Shorts automation — AI script, TTS, Whisper captions, Pexels b-roll, auto-upload.</p>
-        <div class="tech-used"><span>Python</span><span>Edge TTS</span><span>MoviePy</span></div>
-      </div>
-    </div>
-    <div class="portfolio-card fade-in">
-      <div class="portfolio-img">🌐</div>
-      <div class="portfolio-body">
-        <h3>Wedding Invitation Web</h3>
-        <p>Interactive digital undangan with RSVP, countdown, gallery lightbox, music toggle.</p>
-        <div class="tech-used"><span>HTML/CSS/JS</span><span>GitHub Pages</span></div>
-      </div>
-    </div>
-    <div class="portfolio-card fade-in">
-      <div class="portfolio-img">🔒</div>
-      <div class="portfolio-body">
-        <h3>Smart Contract Audit</h3>
-        <p>DeFi protocol audit — Slither + Foundry fuzzing, found 3 critical vulnerabilities.</p>
-        <div class="tech-used"><span>Solidity</span><span>Slither</span><span>Foundry</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section" id="pricing">
-  <div class="section-header fade-in">
-    <div class="section-tag">Pricing</div>
-    <div class="section-title">Simple, Transparent Pricing</div>
-    <div class="section-desc">No hidden fees. Pay for what you need.</div>
-  </div>
-  <div class="pricing-grid fade-in">
-    <div class="pricing-card">
-      <h3>Basic</h3>
-      <div class="price">$50<span>/project</span></div>
-      <div class="desc">Simple tasks & quick fixes</div>
-      <ul class="pricing-features">
-        <li>Landing page / static site</li>
-        <li>Bot setup (basic)</li>
-        <li>Data scraping (< 1000 items)</li>
-        <li>Document preparation</li>
-        <li>3x revision</li>
-        <li>7 hari support</li>
-      </ul>
-      <button class="btn-secondary" onclick="scrollToContact()" style="width:100%">Choose Basic</button>
-    </div>
-    <div class="pricing-card featured">
-      <h3>Pro</h3>
-      <div class="price">$200<span>/project</span></div>
-      <div class="desc">Full-featured projects</div>
-      <ul class="pricing-features">
-        <li>Everything in Basic</li>
-        <li>AI-powered bot (ChatGPT)</li>
-        <li>Web3 security audit</li>
-        <li>Automation pipeline</li>
-        <li>Social media setup</li>
-        <li>Unlimited revision</li>
-        <li>30 hari support</li>
-      </ul>
-      <button class="btn-primary" onclick="scrollToContact()" style="width:100%">Choose Pro</button>
-    </div>
-    <div class="pricing-card">
-      <h3>Enterprise</h3>
-      <div class="price">$500<span>+</span></div>
-      <div class="desc">Complex, multi-service projects</div>
-      <ul class="pricing-features">
-        <li>Everything in Pro</li>
-        <li>Multi-platform integration</li>
-        <li>Custom infrastructure</li>
-        <li>Dedicated VPS setup</li>
-        <li>Priority support</li>
-        <li>90 hari maintenance</li>
-        <li>Source code ownership</li>
-      </ul>
-      <button class="btn-secondary" onclick="scrollToContact()" style="width:100%">Choose Enterprise</button>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section" style="background:var(--bg-card)">
-  <div class="section-header fade-in">
-    <div class="section-tag">Testimonials</div>
-    <div class="section-title">What Clients Say</div>
-  </div>
-  <div class="testimonials-grid fade-in">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <div class="testimonial-text">"Bot Telegram yang dibuatin jalan 24/7 tanpa error. Auto-claim + notifikasi ke HP. Top banget!"</div>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">A</div>
-        <div><div class="testimonial-name">Anonymous</div><div class="testimonial-role">Crypto Trader</div></div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <div class="testimonial-text">"Website undangan nikah gue jadi dalam 1 hari. Semua fitur jalan — RSVP, countdown, maps. Temen-temen pada kaget."</div>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">E</div>
-        <div><div class="testimonial-name">Elma</div><div class="testimonial-role">Bride-to-be</div></div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <div class="testimonial-text">"Smart contract audit-nya detail banget. Ketemu 3 bug yang auditor lain gak detect. Worth it!"</div>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">D</div>
-        <div><div class="testimonial-name">DeFi Dev</div><div class="testimonial-role">Protocol Founder</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section" id="faq">
-  <div class="section-header fade-in">
-    <div class="section-tag">FAQ</div>
-    <div class="section-title">Frequently Asked Questions</div>
-  </div>
-  <div class="faq-list fade-in">
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Berapa lama pengerjaan?</div>
-      <div class="faq-a">Tergantung project. Simple task: 1-3 hari. Bot/website: 3-7 hari. Complex project: 1-3 minggu. Selalu ada timeline di awal.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Ada garansi?</div>
-      <div class="faq-a">Ya! Free revision sesuai paket + support period. Kalau ada bug, fix gratis selama masa support.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Bayar gimana?</div>
-      <div class="faq-a">Transfer bank, crypto (USDT/ETH), atau payment gateway lainnya. 50% DP, 50% setelah selesai.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Bisa custom request?</div>
-      <div class="faq-a">Bisa! Ceritain kebutuhan lo, gue analisis dan kasih rekomendasi + quote harga. Gak ada yang gak mungkin.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Source code siapa yang pegang?</div>
-      <div class="faq-a">Enterprise package: full source code ownership. Basic & Pro: source code dikirim setelah final payment.</div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <h2 class="fade-in">Ready to Build<br><span class="gradient">Something Great?</span></h2>
-  <p class="fade-in">Let's discuss your project. Free consultation.</p>
-  <button class="btn-primary fade-in" onclick="scrollToContact()">Start a Conversation →</button>
-</section>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="section-header fade-in">
-    <div class="section-tag">Contact</div>
-    <div class="section-title">Get In Touch</div>
-  </div>
-  <div class="contact-grid fade-in">
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="contact-icon">📧</div>
-        <div><div class="contact-label">Email</div><div class="contact-value">danni.mawli@gmail.com</div></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">💬</div>
-      <div class="contact-item">
-        <div class="contact-icon">📱</div>
-        <div><div class="contact-label">WhatsApp</div><div class="contact-value">088298490391</div></div>
-      </div>
-        <div><div class="contact-label">Telegram</div><div class="contact-value">@aiueth</div></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📸</div>
-        <div><div class="contact-label">Instagram</div><div class="contact-value">@dnnmauli</div></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🐙</div>
-        <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/0xN404T</div></div>
-      </div>
-    </div>
-    <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
-      <input type="text" placeholder="Nama" required>
-      <input type="email" placeholder="Email" required>
-      <select required>
-        <option value="" disabled selected>Pilih Service</option>
-        <option>Bot Development</option>
-        <option>Web Development</option>
-        <option>Web3 Security</option>
-        <option>Crypto Operations</option>
-        <option>Video Production</option>
-        <option>Social Media</option>
-        <option>Web Scraping</option>
-        <option>DevOps & Server</option>
-        <option>OSINT & Recon</option>
-        <option>AI Security</option>
-        <option>Document Services</option>
-        <option>Automation</option>
-        <option>Other</option>
-      </select>
-      <textarea placeholder="Ceritain project lo..." required></textarea>
-      <button type="submit" class="btn-primary">Send Message →</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-social">
-    <a href="https://github.com/0xN404T" target="_blank">🐙</a>
-    <a href="https://instagram.com/dnnmauli" target="_blank">📸</a>
-    <a href="https://wa.me/6288298490391" target="_blank">📱</a>
-    <a href="https://t.me/aiueth" target="_blank">💬</a>
-  </div>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 0xN404T. All rights reserved. Built with 🤍</div>
-</footer>
-
-<script>
-// Mobile menu
-function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('active')}
-
-// Smooth scroll
-function scrollToContact(){document.getElementById('contact').scrollIntoView({behavior:'smooth'})}
-
-// FAQ toggle
-function toggleFaq(el){el.classList.toggle('active')}
-
-// Contact form
-function handleSubmit(e){
-  e.preventDefault();
-  const form=e.target;
-  const btn=form.querySelector('button');
-  btn.textContent='Sending...';
-  btn.disabled=true;
-  setTimeout(()=>{
-    btn.textContent='✓ Message Sent!';
-    btn.style.background='var(--green)';
-    form.reset();
-    setTimeout(()=>{
-      btn.textContent='Send Message →';
-      btn.style.background='';
-      btn.disabled=false;
-    },3000);
-  },1000);
-}
-
-// Scroll animations
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:0.1});
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-
-// Counter animation
-const counterObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const nums=entry.target.querySelectorAll('.number');
-      nums.forEach(num=>{
-        const text=num.textContent;
-        const match=text.match(/(\d+)/);
-        if(match){
-          const target=parseInt(match[1]);
-          let current=0;
-          const increment=target/40;
-          const timer=setInterval(()=>{
-            current+=increment;
-            if(current>=target){current=target;clearInterval(timer)}
-            num.innerHTML=text.replace(/\d+/,Math.floor(current));
-          },30);
-        }
-      });
-      counterObserver.unobserve(entry.target);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll('.stats').forEach(el=>counterObserver.observe(el));
-
-// Active nav on scroll
-window.addEventListener('scroll',()=>{
-  const sections=['services','portfolio','pricing','faq','contact'];
-  const links=document.querySelectorAll('.nav-links a');
-  let current='';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el && el.getBoundingClientRect().top<200) current=id;
-  });
-  links.forEach(link=>{
-    link.style.color=link.getAttribute('href')===`#${current}`?'var(--white)':'';
-  });
-});
-</script>
-</body>
-</html>
+   218|  </div>
+   219|  <button class="nav-mobile" onclick="toggleMobile()">☰</button>
+   220|</nav>
+   221|
+   222|<!-- MOBILE MENU -->
+   223|<div class="mobile-menu" id="mobileMenu">
+   224|  <button class="mobile-close" onclick="toggleMobile()">✕</button>
+   225|  <a href="#services" onclick="toggleMobile()">Services</a>
+   226|  <a href="#portfolio" onclick="toggleMobile()">Portfolio</a>
+   227|  <a href="#pricing" onclick="toggleMobile()">Pricing</a>
+   228|  <a href="#faq" onclick="toggleMobile()">FAQ</a>
+   229|  <a href="#contact" onclick="toggleMobile()">Contact</a>
+   230|</div>
+   231|
+   232|<!-- HERO -->
+   233|<section class="hero">
+   234|  <div class="hero-badge"><span class="dot"></span> Available for projects</div>
+   235|  <h1>Build Fast.<br><span class="gradient">Ship Faster.</span></h1>
+   236|  <p>Full-stack digital services — dari bot automation sampai Web3 security. Satu developer, semua solusi.</p>
+   237|  <div class="hero-buttons">
+   238|    <button class="btn-primary" onclick="scrollToContact()">Start a Project →</button>
+   239|    <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">View Services</button>
+   240|  </div>
+   241|</section>
+   242|
+   243|<!-- STATS -->
+   244|<div class="stats fade-in">
+   245|  <div class="stat"><div class="number">109<span>+</span></div><div class="label">Skills</div></div>
+   246|  <div class="stat"><div class="number">12</div><div class="label">Categories</div></div>
+   247|  <div class="stat"><div class="number">24<span>/7</span></div><div class="label">Support</div></div>
+   248|  <div class="stat"><div class="number">100<span>%</span></div><div class="label">Automated</div></div>
+   249|</div>
+   250|
+   251|<!-- SERVICES -->
+   252|<section class="section" id="services">
+   253|  <div class="section-header fade-in">
+   254|    <div class="section-tag">Services</div>
+   255|    <div class="section-title">What I Can Build For You</div>
+   256|    <div class="section-desc">Full-stack digital solutions. Dari ide sampai deploy.</div>
+   257|  </div>
+   258|  <div class="services-grid">
+   259|
+   260|    <div class="service-card fade-in">
+   261|      <div class="service-icon" style="background:rgba(108,92,231,0.15)">🤖</div>
+   262|      <h3>Bot Development</h3>
+   263|      <p>Telegram, WhatsApp, Discord bots dengan AI integration. Auto-reply, broadcast, CS ticketing, monitoring.</p>
+   264|      <div class="service-tags">
+   265|        <span class="service-tag">Telegram</span>
+   266|        <span class="service-tag">WhatsApp</span>
+   267|        <span class="service-tag">Discord</span>
+   268|        <span class="service-tag">AI/ChatGPT</span>
+   269|      </div>
+   270|      <div class="service-price">Mulai dari $100</div>
+   271|    </div>
+   272|
+   273|    <div class="service-card fade-in">
+   274|      <div class="service-icon" style="background:rgba(0,210,211,0.15)">🌐</div>
+   275|      <h3>Web Development</h3>
+   276|      <p>Website responsif, landing page, wedding invitation, portfolio. Deploy ke GitHub Pages, Vercel, Cloudflare.</p>
+   277|      <div class="service-tags">
+   278|        <span class="service-tag">HTML/CSS/JS</span>
+   279|        <span class="service-tag">Responsive</span>
+   280|        <span class="service-tag">Deploy</span>
+   281|      </div>
+   282|      <div class="service-price">Mulai dari $50</div>
+   283|    </div>
+   284|
+   285|    <div class="service-card fade-in">
+   286|      <div class="service-icon" style="background:rgba(253,150,68,0.15)">🔒</div>
+   287|      <h3>Web3 Security</h3>
+   288|      <p>Smart contract audit, wallet drainer detection, on-chain forensics, bug bounty hunting.</p>
+   289|      <div class="service-tags">
+   290|        <span class="service-tag">Solidity</span>
+   291|        <span class="service-tag">Slither</span>
+   292|        <span class="service-tag">Mythril</span>
+   293|        <span class="service-tag">Audit</span>
+   294|      </div>
+   295|      <div class="service-price">Mulai dari $200</div>
+   296|    </div>
+   297|
+   298|    <div class="service-card fade-in">
+   299|      <div class="service-icon" style="background:rgba(232,67,147,0.15)">🪙</div>
+   300|      <h3>Crypto Operations</h3>
+   301|      <p>Multi-chain wallet generation, token analysis, airdrop farming, trading bot setup, DePIN node ops.</p>
+   302|      <div class="service-tags">
+   303|        <span class="service-tag">EVM</span>
+   304|        <span class="service-tag">Solana</span>
+   305|        <span class="service-tag">Trading</span>
+   306|        <span class="service-tag">Airdrop</span>
+   307|      </div>
+   308|      <div class="service-price">Mulai dari $50</div>
+   309|    </div>
+   310|
+   311|    <div class="service-card fade-in">
+   312|      <div class="service-icon" style="background:rgba(9,132,227,0.15)">🎬</div>
+   313|      <h3>Video Production</h3>
+   314|      <p>YouTube Shorts pipeline otomatis. Script → TTS → captions → video → upload. Multi-language support.</p>
+   315|      <div class="service-tags">
+   316|        <span class="service-tag">TTS</span>
+   317|        <span class="service-tag">Whisper</span>
+   318|        <span class="service-tag">Auto-upload</span>
+   319|      </div>
+   320|      <div class="service-price">Mulai dari $30/video</div>
+   321|    </div>
+   322|
+   323|    <div class="service-card fade-in">
+   324|      <div class="service-icon" style="background:rgba(108,92,231,0.15)">📱</div>
+   325|      <h3>Social Media</h3>
+   326|      <p>X/Twitter auto-posting, growth analytics, content strategy, engagement automation.</p>
+   327|      <div class="service-tags">
+   328|        <span class="service-tag">X/Twitter</span>
+   329|        <span class="service-tag">Analytics</span>
+   330|        <span class="service-tag">Growth</span>
+   331|      </div>
+   332|      <div class="service-price">Mulai dari $200/bulan</div>
+   333|    </div>
+   334|
+   335|    <div class="service-card fade-in">
+   336|      <div class="service-icon" style="background:rgba(0,210,211,0.15)">🕷️</div>
+   337|      <h3>Web Scraping</h3>
+   338|      <p>Data extraction, browser automation, CAPTCHA bypass, anti-detect setup.</p>
+   339|      <div class="service-tags">
+   340|        <span class="service-tag">Playwright</span>
+   341|        <span class="service-tag">Python</span>
+   342|        <span class="service-tag">Anti-detect</span>
+   343|      </div>
+   344|      <div class="service-price">Mulai dari $100</div>
+   345|    </div>
+   346|
+   347|    <div class="service-card fade-in">
+   348|      <div class="service-icon" style="background:rgba(253,150,68,0.15)">🖥️</div>
+   349|      <h3>DevOps & Server</h3>
+   350|      <p>VPS setup & hardening, Docker deployment, CI/CD pipeline, LLM API hosting, monitoring.</p>
+   351|      <div class="service-tags">
+   352|        <span class="service-tag">Linux</span>
+   353|        <span class="service-tag">Docker</span>
+   354|        <span class="service-tag">CI/CD</span>
+   355|      </div>
+   356|      <div class="service-price">Mulai dari $100</div>
+   357|    </div>
+   358|
+   359|    <div class="service-card fade-in">
+   360|      <div class="service-icon" style="background:rgba(232,67,147,0.15)">🔍</div>
+   361|      <h3>OSINT & Recon</h3>
+   362|      <p>Target reconnaissance, subdomain enumeration, attack surface mapping, phone number lookup.</p>
+   363|      <div class="service-tags">
+   364|        <span class="service-tag">Nmap</span>
+   365|        <span class="service-tag">Nuclei</span>
+   366|        <span class="service-tag">OSINT</span>
+   367|      </div>
+   368|      <div class="service-price">Mulai dari $150</div>
+   369|    </div>
+   370|
+   371|    <div class="service-card fade-in">
+   372|      <div class="service-icon" style="background:rgba(9,132,227,0.15)">🛡️</div>
+   373|      <h3>AI Security</h3>
+   374|      <p>AI red teaming, prompt injection testing, LLM guardrail audit, CTF challenge solving.</p>
+   375|      <div class="service-tags">
+   376|        <span class="service-tag">Red Team</span>
+   377|        <span class="service-tag">LLM</span>
+   378|        <span class="service-tag">CTF</span>
+   379|      </div>
+   380|      <div class="service-price">Mulai dari $200</div>
+   381|    </div>
+   382|
+   383|    <div class="service-card fade-in">
+   384|      <div class="service-icon" style="background:rgba(108,92,231,0.15)">📄</div>
+   385|      <h3>Document Services</h3>
+   386|      <p>Excel template builder, CV/Resume ATS optimization, application document preparation.</p>
+   387|      <div class="service-tags">
+   388|        <span class="service-tag">Excel</span>
+   389|        <span class="service-tag">CV</span>
+   390|        <span class="service-tag">PDF</span>
+   391|      </div>
+   392|      <div class="service-price">Mulai dari $20</div>
+   393|    </div>
+   394|
+   395|    <div class="service-card fade-in">
+   396|      <div class="service-icon" style="background:rgba(0,210,211,0.15)">💰</div>
+   397|      <h3>Automation</h3>
+   398|      <p>Survey automation, workflow automation (n8n/Zapier), earning platform optimization.</p>
+   399|      <div class="service-tags">
+   400|        <span class="service-tag">n8n</span>
+   401|        <span class="service-tag">Playwright</span>
+   402|        <span class="service-tag">Cron</span>
+   403|      </div>
+   404|      <div class="service-price">Mulai dari $100</div>
+   405|    </div>
+   406|
+   407|  </div>
+   408|</section>
+   409|
+   410|<!-- HOW IT WORKS -->
+   411|<section class="section" style="background:var(--bg-card)">
+   412|  <div class="section-header fade-in">
+   413|    <div class="section-tag">Process</div>
+   414|    <div class="section-title">How It Works</div>
+   415|  </div>
+   416|  <div class="steps fade-in">
+   417|    <div class="step">
+   418|      <div class="step-num">01</div>
+   419|      <h3>Discuss</h3>
+   420|      <p>Ceritain kebutuhan lo. Gue analisis & kasih rekomendasi terbaik.</p>
+   421|    </div>
+   422|    <div class="step">
+   423|      <div class="step-num">02</div>
+   424|      <h3>Build</h3>
+   425|      <p>Gue develop, test, sampai perfect. Progress update realtime.</p>
+   426|    </div>
+   427|    <div class="step">
+   428|      <div class="step-num">03</div>
+   429|      <h3>Deploy</h3>
+   430|      <p>Deploy ke server, domain, atau platform pilihan lo.</p>
+   431|    </div>
+   432|    <div class="step">
+   433|      <div class="step-num">04</div>
+   434|      <h3>Support</h3>
+   435|      <p>Maintenance & support after deploy. Gak ada PHP-an.</p>
+   436|    </div>
+   437|  </div>
+   438|</section>
+   439|
+   440|<!-- TECH STACK -->
+   441|<section class="section">
+   442|  <div class="section-header fade-in">
+   443|    <div class="section-tag">Tech Stack</div>
+   444|    <div class="section-title">Tools I Use</div>
+   445|  </div>
+   446|  <div class="tech-row fade-in">
+   447|    <div class="tech-item"><div class="tech-dot" style="background:#f7df1e"></div>JavaScript</div>
+   448|    <div class="tech-item"><div class="tech-dot" style="background:#3178c6"></div>TypeScript</div>
+   449|    <div class="tech-item"><div class="tech-dot" style="background:#3776ab"></div>Python</div>
+   450|    <div class="tech-item"><div class="tech-dot" style="background:#00add8"></div>Go</div>
+   451|    <div class="tech-item"><div class="tech-dot" style="background:#e34f26"></div>HTML/CSS</div>
+   452|    <div class="tech-item"><div class="tech-dot" style="background:#61dafb"></div>React</div>
+   453|    <div class="tech-item"><div class="tech-dot" style="background:#339933"></div>Node.js</div>
+   454|    <div class="tech-item"><div class="tech-dot" style="background:#2496ed"></div>Docker</div>
+   455|    <div class="tech-item"><div class="tech-dot" style="background:#0db7ed"></div>PostgreSQL</div>
+   456|    <div class="tech-item"><div class="tech-dot" style="background:#47a248"></div>MongoDB</div>
+   457|    <div class="tech-item"><div class="tech-dot" style="background:#ff6b6b"></div>Solidity</div>
+   458|    <div class="tech-item"><div class="tech-dot" style="background:#00d2d3"></div>Linux/VPS</div>
+   459|  </div>
+   460|</section>
+   461|
+   462|<!-- PORTFOLIO -->
+   463|<section class="section" id="portfolio" style="background:var(--bg-card)">
+   464|  <div class="section-header fade-in">
+   465|    <div class="section-tag">Portfolio</div>
+   466|    <div class="section-title">Recent Projects</div>
+   467|  </div>
+   468|  <div class="portfolio-grid">
+   469|    <div class="portfolio-card fade-in">
+   470|      <div class="portfolio-img">🤖</div>
+   471|      <div class="portfolio-body">
+   472|        <h3>ITLG Auto-Claim Bot</h3>
+   473|        <p>Automated token mining bot with Telegram notifications, multi-account support, and anti-detect.</p>
+   474|        <div class="tech-used"><span>Node.js</span><span>Telegram API</span><span>Cron</span></div>
+   475|      </div>
+   476|    </div>
+   477|    <div class="portfolio-card fade-in">
+   478|      <div class="portfolio-img">🎬</div>
+   479|      <div class="portfolio-body">
+   480|        <h3>ShortForge Pipeline</h3>
+   481|        <p>Full YouTube Shorts automation — AI script, TTS, Whisper captions, Pexels b-roll, auto-upload.</p>
+   482|        <div class="tech-used"><span>Python</span><span>Edge TTS</span><span>MoviePy</span></div>
+   483|      </div>
+   484|    </div>
+   485|    <div class="portfolio-card fade-in">
+   486|      <div class="portfolio-img">🌐</div>
+   487|      <div class="portfolio-body">
+   488|        <h3>Wedding Invitation Web</h3>
+   489|        <p>Interactive digital undangan with RSVP, countdown, gallery lightbox, music toggle.</p>
+   490|        <div class="tech-used"><span>HTML/CSS/JS</span><span>GitHub Pages</span></div>
+   491|      </div>
+   492|    </div>
+   493|    <div class="portfolio-card fade-in">
+   494|      <div class="portfolio-img">🔒</div>
+   495|      <div class="portfolio-body">
+   496|        <h3>Smart Contract Audit</h3>
+   497|        <p>DeFi protocol audit — Slither + Foundry fuzzing, found 3 critical vulnerabilities.</p>
+   498|        <div class="tech-used"><span>Solidity</span><span>Slither</span><span>Foundry</span></div>
+   499|      </div>
+   500|    </div>
+   501|
